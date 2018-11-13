@@ -1,0 +1,48 @@
+{
+  "name": "simple-koa-seed",
+  "version": "0.0.1",
+  "description": "Simple koa server + js client seed",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/diversivo/simple-koa-seed.git"
+  },
+  "scripts": {
+    "start": "node ./server/index.js",
+    "build": "cp client/public/** client/dist/ && webpack --mode=production --config webpack.config.babel.js",
+    "devServe": "webpack-serve --config webpack.config.babel.js",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "koa": "^2.6.2",
+    "koa-body": "^4.0.4",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-sslify": "^2.1.2",
+    "koa-static": "^5.0.0",
+    "nodemailer": "^4.6.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "chai": "4.1.2",
+    "chai-http": "^4.2.0",
+    "css-loader": "^1.0.1",
+    "express": "^4.16.4",
+    "html-loader": "^0.5.5",
+    "mocha": "5.2.0",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.21.0",
+    "svg-inline-loader": "^0.8.0",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
+    "webpack-serve": "^2.0.2"
+  }
+}

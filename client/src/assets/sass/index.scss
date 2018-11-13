@@ -1,0 +1,29 @@
+
+$white: #FFFFFF;
+$black: #252525;
+
+body {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  background-color: $black;
+  .box{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      padding: 0px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      div{
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        border: $white solid 3px;
+        svg{
+          max-width: 800px;
+          fill: $white;
+        }
+      }
+    }
+}
