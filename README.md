@@ -1,0 +1,2 @@
+# trivia-diversivo
+Juego trivia
