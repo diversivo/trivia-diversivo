@@ -1,0 +1,22 @@
+[
+    {   "question":"¿Cuál es la capital de Chile?",
+        "answer":"Santiago",
+        "points":1
+    },
+    {   "question":"¿Cuánto es 2 + 2?",
+        "answer":"4",
+        "points":1
+    },
+    {   "question":"¿Cuál es la fórmula química del agua?",
+        "answer":"H20",
+        "points":2
+    },
+    {   "question":"¿Quién es el presidente de la Federación Rusa?",
+        "answer":"Vladimir Putin",
+        "points":3
+    },
+    {   "question":"¿A qué medio de transporte corresponde un Boeing 747?",
+        "answer":"Avión",
+        "points":2
+    }
+]

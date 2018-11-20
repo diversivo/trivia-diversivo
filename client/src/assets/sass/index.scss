@@ -26,4 +26,24 @@ body {
         }
       }
     }
+  .card{
+    background-color: $white;
+    border: 4px;
+    margin: 5px;
+    border-style: solid;
+    border-color: darkcyan;
+    height: 100px;
+    width: 200px;
+    display: inline-block;
+    &:active{
+      transform: rotateY(180deg);
+      transition: 3s;
+      transform-style: preserve-3d;
+      background-color: red;
+    }
+  }
+  .grid{
+    flex-direction: row;
+
+  }
 }

@@ -1,0 +1,72 @@
+DIVERSIVO TRIVIA - DOCUMENTATION FOR DEVELOPERS
+===============================================
+(by aerojas - v1.0 Nov.19,2018)
+
+
+1. What is this
+===============
+Diversivo trivia is a simple game where the user is shown a set of cards, initially showing just an image. The user
+can click a card, making the card flip, showing a question. The user tries to answer the question shown in the card,
+then clicks the card again, making it flip, and showing the answer.
+
+2. How it works
+===============
+
+3. The menu 
+===============
+The menu element is the first element shown to the user. It includes very few options, like 'Play' and 'About'. The
+'Play' option launches the game screen, while the 'About' option shows an informational pop-up containing the
+name of the game, the authors and other interesting stuff, like links.
+
+4. The game
+===============
+When the user clicks 'Play' on the menu, the page hides the menu and shows the game. This trivia game consists
+in a set of cards, which are clickable, disposed in a grid. Each card contains a question and its respective
+answer, read from a JSON file. The user can click each card to show the question, try to answer, and then click
+again to show the answer. The cards can be clicked in no particular order.
+
+There is no countdown when playing the game, so the user can take all the time he/she wants to play it.
+
+The game screen should provide a way to the user to end the game, whenever he/she has completed the game or not. In
+both cases, the termination of the game should return the user to the menu.
+
+5. Points vs no points mode
+==========================
+The default mode is no points mode. In this mode, the cards only show their question and answer when clicked, with
+no reward to the user if he/she answers correctly.
+
+The other (planned) mode is Points mode. In this mode, when the user clicks the card and its question is shown, the
+user is also presented with a set of possible answers. If the correct answer is selected, a number of points are added
+to the user's score. If the incorrect answer is selected, no points are added (or substracted).
+
+6. The card element
+===================
+A card is a single rectangular element on the game screen which contains a question and its answer. It's clickable and
+should show an animation when clicked, like flipping the card. A card has three states: covered, showing the question,
+and showing the answer.
+
+- Covered: the initial state of the card. It just shows an image, like a logo, resembling a cards' back, where the
+relevant content is hidden.
+
+- Showing the question: the state after a Covered card is clicked on. It shows a white background with text in the center;
+the text is the question that the user must answer. If Points mode is implemented and enabled, the points the card is worth
+are shown as a number within a circle in the upper right corner of the card. Also, when Points mode is enabled, a little
+menu with three options is shown next to the card. The user must click one of the available choices in order to answer the
+question, making the card flip again, show the answer and add the points if needed. If No Points mode is enabled, the user
+just needs to click the card directly to show the answer.
+
+- Showing the answer: the final state of the card. It shows a white background with text in the center. Optionally, if Poitents
+mode is enabled, the card/text combo can show different colors depending if the user answered correctly or not. When a card
+in this state is clicked, it does nothing. The answer is kept shown until the user restarts the game.
+
+7. The questions file
+=====================
+
+The questions file is a JSON formatted text file which contains an array of Question objects. Each Question object contains
+four elements:
+
+- Question: The question text
+- Answer: The answer text
+- Options: If Points mode is enabled, an array of possible choices to answer the question. One of the choices should be identical
+to the value of Answer.
+- Points: How many points are awarded to the user if answered the question correctly.
