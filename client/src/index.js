@@ -1,9 +1,21 @@
 import css from './assets/sass/index.scss';
 import svgLogo from './assets/img/diversivo-v2.svg';
 import menu from './menu';
-//import questions from "../assets/questions.json"; //The file with questions, represented by a JSON array of Question objects
 
+// var questionsReader = new FileReader();
+// questionsReader.readAsText('./assets/questions.json');
+// var questions = questionsReader.result; 
+//console.log(questions);
 
+let state = {
+    gameState: 'menu, playing, over, win',
+    cardsState: [
+        {
+            id:1,
+            state: 'a, b, c'
+        }
+    ],
+}
 
 console.log(menu.msg);
 
@@ -13,15 +25,17 @@ const box = document.createElement("DIV");
 const div =  document.createElement("DIV");
 
 
-//div.appendChild(div.ownerDocument.importNode(logo.documentElement, true))
+const array = [1,2,3,4,5]
 
-var cardsFragment = document.createDocumentFragment();
-var i;
-for(i=0;i<5;i++){
+const cardsFragment = document.createDocumentFragment();
+array.forEach(()=>{
     const card = document.createElement("DIV");
     card.classList.add('card');
     cardsFragment.appendChild(card);
-    console.log(i);
-}
+})
+
+//div.appendChild(div.ownerDocument.importNode(logo.documentElement, true))
+
+
 document.body.appendChild(cardsFragment);
 box.classList.add('box');

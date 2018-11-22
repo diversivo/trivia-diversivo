@@ -5,33 +5,46 @@ DIVERSIVO TRIVIA - DOCUMENTATION FOR DEVELOPERS
 
 1. What is this
 ===============
-Diversivo trivia is a simple game where the user is shown a set of cards, initially showing just an image. The user
-can click a card, making the card flip, showing a question. The user tries to answer the question shown in the card,
-then clicks the card again, making it flip, and showing the answer.
+Diversivo Trivia is a simple game where a contestant is shown a set of cards, initially showing just an image. The contest
+operator can click a card, making the card flip, showing a question. The contestant tries to answer the question shown in the card,
+then the operator clicks the card again, making it flip, and showing the answer. The operator validates if the answer given by the
+contestant is correct or not, and act accordingly.
 
 2. How it works
 ===============
+The typical use case of this game is in a public contest (stage, relatively big screen, the contestant is someone from the public),
+where at least two actors participate: the contestant and a operator. The operator makes the interaction with the game, while
+the contestant doesn't interact with the application, just participates. The operator and the contestant interact with each other
+(or through a host) in the context of the contest, and the former is responsible to conduct the flow of the game in the correct order.
+
+The game, seen as an application, just has two states: the menu and the game loop. Inside the game loop, there could be levels,
+which could be considered substates of the latter.
 
 3. The menu 
 ===============
-The menu element is the first element shown to the user. It includes very few options, like 'Play' and 'About'. The
-'Play' option launches the game screen, while the 'About' option shows an informational pop-up containing the
-name of the game, the authors and other interesting stuff, like links.
+The menu element is the first element shown to the operator. It includes very few options in form of buttons, like 'Play' and 'About'. The
+'Play' option launches the game screen, while the 'About' option shows an informational pop-up containing the name of the game, the authors
+and other interesting stuff, like links.
 
 4. The game
 ===============
-When the user clicks 'Play' on the menu, the page hides the menu and shows the game. This trivia game consists
-in a set of cards, which are clickable, disposed in a grid. Each card contains a question and its respective
-answer, read from a JSON file. The user can click each card to show the question, try to answer, and then click
-again to show the answer. The cards can be clicked in no particular order.
+When the operator clicks 'Play' on the menu, the page hides the menu and shows the game. This trivia game consists
+in a set of cards (usually between 3 and 5, configurable via a config file), which are clickable, disposed in a grid. Each card contains a question, taken from a predefined
+set of questions in random order, and its respective answer, initially saved in a JS object (it is considered to read the questions from an
+actual JSON file in the near future while figuring the best way to do it). The operator can click each card to show the question,
+waits for the contestante to try to answer, and then clicks again to show the answer. The cards can be clicked in no particular order.
 
-There is no countdown when playing the game, so the user can take all the time he/she wants to play it.
+There is no countdown when playing the game, so the contestant can take all the time he/she wants to play it.
 
-The game screen should provide a way to the user to end the game, whenever he/she has completed the game or not. In
-both cases, the termination of the game should return the user to the menu.
+The game screen should provide a way to the operator to end the game for the contestant, as victory or game over, depending of the questions
+correctly answered by the contestant and the specific rules of the contest. In both cases, the termination of the game should return the
+operator to the menu.
 
 5. Points vs no points mode
-==========================
+===========================
+(NOTE: the Points mode is not in consideration by now, just making the default no points mode, and doesn't fit the typical use case anyway. This
+section is not deleted just to keep the idea just in case will be needed in future versions or variations)
+
 The default mode is no points mode. In this mode, the cards only show their question and answer when clicked, with
 no reward to the user if he/she answers correctly.
 

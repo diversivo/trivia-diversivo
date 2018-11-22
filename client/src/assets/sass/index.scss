@@ -1,6 +1,10 @@
 
 $white: #FFFFFF;
 $black: #252525;
+$card-cover: #6e6969;
+$card-question: #da9d64;
+$card-answer: #b6e24f;
+
 
 body {
   padding: 0;
@@ -41,7 +45,17 @@ body {
       transform-style: preserve-3d;
       background-color: red;
     }
+      .covered{
+          background-color: $card-cover;
+      }
+      .question{
+          background-color: $card-question;
+      }
+      .answer{
+        background-color: $card-answer;
+      }
   }
+
   .grid{
     flex-direction: row;
 
