@@ -29,16 +29,20 @@ and other interesting stuff, like links.
 4. The game
 ===============
 When the operator clicks 'Play' on the menu, the page hides the menu and shows the game. This trivia game consists
-in a set of cards (usually between 3 and 5, configurable via a config file), which are clickable, disposed in a grid. Each card contains a question, taken from a predefined
-set of questions in random order, and its respective answer, initially saved in a JS object (it is considered to read the questions from an
-actual JSON file in the near future while figuring the best way to do it). The operator can click each card to show the question,
+in a set of cards (usually between 3 and 5, configurable via a config file), which are clickable, disposed in a grid. Each card contains a question,
+taken from a predefined set of questions in random order, and its respective answer, initially saved in a JS object (it is considered to read the
+questions from an actual JSON file in the near future while figuring the best way to do it). The operator can click each card to show the question,
 waits for the contestante to try to answer, and then clicks again to show the answer. The cards can be clicked in no particular order.
 
 There is no countdown when playing the game, so the contestant can take all the time he/she wants to play it.
 
-The game screen should provide a way to the operator to end the game for the contestant, as victory or game over, depending of the questions
+The game screen should provide a way to the operator to end the game for the contestant, as win or game over, depending of the questions
 correctly answered by the contestant and the specific rules of the contest. In both cases, the termination of the game should return the
 operator to the menu.
+
+In some cases, the game needs to have different levels of difficulty. That is configurable. If the levels are enabled, the operator has an additional
+control (other than Win, Game Over and Exit) which allows to advance to the next level. In this mode, the questions are harder the more advanced
+the level is.
 
 5. Points vs no points mode
 ===========================
@@ -59,27 +63,33 @@ should show an animation when clicked, like flipping the card. A card has three 
 and showing the answer.
 
 - Covered: the initial state of the card. It just shows an image, like a logo, resembling a cards' back, where the
-relevant content is hidden.
+relevant content is hidden. White border.
 
 - Showing the question: the state after a Covered card is clicked on. It shows a white background with text in the center;
-the text is the question that the user must answer. If Points mode is implemented and enabled, the points the card is worth
+the text is the question that the contestant must answer. If No Points mode is enabled, the operator
+just needs to click the card again to show the answer. Yellow border.
+
+(This paragraph discarded because the Points mode is not considered by now) If Points mode is implemented and enabled, the points the card is worth
 are shown as a number within a circle in the upper right corner of the card. Also, when Points mode is enabled, a little
 menu with three options is shown next to the card. The user must click one of the available choices in order to answer the
-question, making the card flip again, show the answer and add the points if needed. If No Points mode is enabled, the user
-just needs to click the card directly to show the answer.
+question, making the card flip again, show the answer and add the points if needed. 
 
 - Showing the answer: the final state of the card. It shows a white background with text in the center. Optionally, if Poitents
 mode is enabled, the card/text combo can show different colors depending if the user answered correctly or not. When a card
-in this state is clicked, it does nothing. The answer is kept shown until the user restarts the game.
+in this state is clicked, it does nothing. The answer is kept shown until the user restarts the game. Green border.
 
-7. The questions file
-=====================
+7. The questions
+================
 
-The questions file is a JSON formatted text file which contains an array of Question objects. Each Question object contains
-four elements:
+The questions file is, initially, just a JavaScript object and, in the near future, a JSON formatted text file, which contains
+an array of Question objects. Each Question object contains four elements:
 
 - Question: The question text
 - Answer: The answer text
+- Difficulty: How difficult is the question, expressed as a integer starting from 1. The higher the number, the harder the question.
+
+
+(the following parameters are discarded because the Points mode is not considered by now)
+- Points: How many points are awarded to the user if answered the question correctly.
 - Options: If Points mode is enabled, an array of possible choices to answer the question. One of the choices should be identical
 to the value of Answer.
-- Points: How many points are awarded to the user if answered the question correctly.

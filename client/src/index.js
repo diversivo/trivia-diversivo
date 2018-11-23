@@ -2,13 +2,18 @@ import css from './assets/sass/index.scss';
 import svgLogo from './assets/img/diversivo-v2.svg';
 import menu from './menu';
 
-// var questionsReader = new FileReader();
-// questionsReader.readAsText('./assets/questions.json');
-// var questions = questionsReader.result; 
-//console.log(questions);
+//Constants
+const allowedStates = [
+    "MENU",
+    "GAME_LOOP"
+];
 
-let state = {
-    gameState: 'menu, playing, over, win',
+//Application state object
+let appState = {
+    currentState: "MENU",
+    levelsEnabled: false,
+    currentLevel: 0,
+    cardsPerLevel: 3,
     cardsState: [
         {
             id:1,
@@ -17,25 +22,22 @@ let state = {
     ],
 }
 
-console.log(menu.msg);
-
-const logo = new DOMParser().parseFromString(svgLogo, 'application/xml');
-const screen =  document.createElement("DIV");
-const box = document.createElement("DIV");
-const div =  document.createElement("DIV");
-
-
-const array = [1,2,3,4,5]
-
-const cardsFragment = document.createDocumentFragment();
-array.forEach(()=>{
-    const card = document.createElement("DIV");
-    card.classList.add('card');
-    cardsFragment.appendChild(card);
-})
-
-//div.appendChild(div.ownerDocument.importNode(logo.documentElement, true))
+//Functions
+const isCurrentStateValid = () => {
+    console.log(appState.currentState);
+    console.log(allowedStates.includes(appState.currentState));
+    allowedStates.includes(appState.currentState) ? () => console.log("Hola") : console.error("Error: the current state of the application is not a valid state: " + appState.currentState + 
+        ". The accepted states are: " + allowedStates.toString() + ".");
+    /* if(allowedStates.includes(appState.currentState)){
+        console.log("Hola");
+    } else {
+        console.error("Error: the current state of the application is not a valid state: " + appState.currentState + 
+                      ". The accepted states are: " + allowedStates.toString() + ".");
+    } */
+}
 
 
-document.body.appendChild(cardsFragment);
-box.classList.add('box');
+//MAIN 
+appState.currentState = "ASDF";
+isCurrentStateValid();
+console.log('H');
