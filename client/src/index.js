@@ -1,6 +1,6 @@
 import css from './assets/sass/index.scss';
 import svgLogo from './assets/img/diversivo-v2.svg';
-import menu from './menu';
+import { Menu } from "./menu/index";
 
 //Constants
 const allowedStates = [
@@ -57,10 +57,13 @@ function initializeApp(){
  */
 function main(){
     initializeApp(); //Initial app state, background, etc.
-    //Show menu and wait for user action
+    const menu = new Menu();
+    menu.displayMenu();
 }
 
 
 
 //Calling main in order to start execution
 main();
+
+export {appState};
