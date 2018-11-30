@@ -2,20 +2,24 @@ import { appState } from "../index"; //TODO undo this circular reference - is us
 
 class Menu{
     constructor(){
-        // this._title = this._createTitle();
+        this._title = this._createTitle();
         //playButton: is a DocumentFragment containing the Play! button element of the menu
         this._playButton = this._createPlayButton();
     }
 
     _createTitle(){
-        //TODO make title
+        const title = document.createElement("div");
+        title.classList.add("menu_title");
+        title.appendChild(document.createTextNode("Diversivo Trivia"));
+        return title;
+        //TODO title style
     }
 
     /**
      * Creates the main button of the menu - the Play! button
      */
     _createPlayButton() {
-        let playButton = document.createElement("button");
+        const playButton = document.createElement("button");
         playButton.setAttribute("type","button");
         playButton.setAttribute("id","playButton");
         playButton.textContent = "¡Jugar!";
@@ -25,17 +29,17 @@ class Menu{
         });
         return playButton;
         //TODO button style
-        //TODO button onclick event listener
     }
 
     /**
      * Creates the menu and displays it
      */
     displayMenu(){
-        let menuFragment = document.createDocumentFragment();
+        const menuFragment = document.createDocumentFragment();
         //...
         //TODO make the DIVs for the menu
         //TODO make basic styles for the menu and menu elements (button, title, etc)
+        menuFragment.appendChild(this._title);
         menuFragment.appendChild(this._playButton);
         document.body.appendChild(menuFragment);
     }

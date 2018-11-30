@@ -12,13 +12,16 @@ const allowedStates = [
 let appState = {
     currentState: "MENU",
     levelsEnabled: false,
-    currentLevel: 0,
-    cardsPerLevel: 3,
+    currentLevel: 1, //Starts at 1
+    maxLevel: 3, //Basically, the number of levels
+    cardsPerLevel: 3, //If levelsEnabled is true, show this number of cards per level
+    cardsIfNoLevel: 10, //If levelsEnabled is false, show this number of cards
     cardsState: [
         {
             id:1,
             state: 'a, b, c'
-        }
+        } //Redefine this card state if neccesary
+    //TODO evaluate if cardsState should pertain to appState or if it could be a property of each card instance
     ],
 }
 
@@ -47,6 +50,12 @@ function isCurrentStateValid() {
  */
 function initializeApp(){
     appState.currentState = "MENU";
+    //TODO: Make sure application configurations are valid:
+        // - No negative level numbers
+        // - There should be at least cardsPerLevel questions for each level if levelsEnabled is true
+        // - There should be at least cardsIfNoLevel questions if levelsEnabled is false
+        // - Discount identical questions from the count (related to the two points above) 
+    //TODO: load config from file (validate it previously, if not correct, throw alert and stop execution)
     //TODO: Add background to the app
     //TODO: [OPTIONAL] Add music
 }
