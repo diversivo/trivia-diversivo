@@ -93,3 +93,6 @@ an array of Question objects. Each Question object contains four elements:
 - Points: How many points are awarded to the user if answered the question correctly.
 - Options: If Points mode is enabled, an array of possible choices to answer the question. One of the choices should be identical
 to the value of Answer.
+
+//TODO migrate to README.md and style with Markdown
+//TODO format to 120 columns
