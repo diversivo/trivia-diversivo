@@ -9,6 +9,9 @@ class Menu{
 		this._playButton = this._createPlayButton();
 	}
 
+	/**
+	 * Generates a DIV containing the application title
+	 */
 	_createTitle(){
 		//Container DIV for all elements: a DIV with image inside, and a DIV with text inside
 		const title = document.createElement("div");
@@ -18,7 +21,6 @@ class Menu{
 
 		//Image for first DIV - Diversivo's logo with shadow
 		const titleImage = new DOMParser().parseFromString(svgLogo, "application/xml"); //Loading the SVG
-		console.log(titleImage);
 
 		//Inserting the shadow into the SVG
 		titleImage.getElementsByTagName("defs")[0].innerHTML = 
@@ -33,19 +35,25 @@ class Menu{
 		titleImageContainer.classList.add("menu_title", "menu_title_img");
 		titleImageContainer.appendChild(titleImageContainer.ownerDocument.importNode(titleImage.documentElement, true));
 		titleImageContainer.style.padding = "0 25%";
-		//Changing Diversivo's logo color from black to other color
-		titleImageContainer.style.fill = "cadetblue";
+		//Changing Diversivo's logo color from black to other color, also is possible do it adding the "fill" attribute to each path, but this is quicker
+		titleImageContainer.style.fill = "#1f3e93";
 		//TODO solve Diversivo's logo shadow being cut at S and O
 
 		//Guide lines
 		//TODO delete guide lines
-		titleImageContainer.style.border = "5px solid blue";
+		//	titleImageContainer.style.border = "5px solid blue";
 
 		//Second DIV containing the "Trivia" word
 		const titleTextContainer = document.createElement("div");
 		titleTextContainer.classList.add("menu_title", "menu_title_text");
-		titleTextContainer.appendChild(document.createTextNode("Trivia"));
+		titleTextContainer.appendChild(document.createTextNode("TRIVIA"));
 		titleTextContainer.style.textAlign = "center";
+		titleTextContainer.style.fontFamily = "sans-serif"; //TODO title text style, better font
+		titleTextContainer.style.fontSize = "125px";
+		titleTextContainer.style.fontWeight = "1000";
+		titleTextContainer.style.color = "white";
+		titleTextContainer.style.textShadow = "2px 2px #ff6011";
+
 
 		//Apending both DIVs to the containter DIV and returning it
 		title.appendChild(titleImageContainer);
@@ -56,20 +64,23 @@ class Menu{
 
 	/**
      * Creates the main button of the menu - the Play! button
+	 * inside a DIV container
      */
 	_createPlayButton() {
-		const playButtonContainer = document.createElement("div");
-		playButtonContainer.style.alignContent = "center";
-
+		//Creating the button
 		const playButton = document.createElement("button");
 		playButton.setAttribute("type","button");
-		playButton.setAttribute("id","playButton");
+		playButton.setAttribute("id","play-button");
 		playButton.textContent = "¡Jugar!";
 		playButton.addEventListener("click", () => {
 			appState.currentState = "GAME_LOOP";
 			console.log("Current state is GAME_LOOP");
 		});
-		return playButton;
+
+		//Creating the button container - a DIV
+		const playButtonContainer = document.createElement("div");
+		playButtonContainer.appendChild(playButton);
+		return playButtonContainer;
 		//TODO button style
 	}
 
