@@ -6,11 +6,14 @@ import { Menu } from "./menu/index";
 //Constants
 const allowedStates = [
 	"MENU",
-	"GAME_LOOP"
+	"GAME"
 ];
 
-//Application state object
-let appState = {
+const menu = new Menu();
+
+
+//Application state object, here's supplied with default parameters, then these values could be replaced from a configuration file
+let appStateNConfig = {
 	currentState: "MENU",
 	levelsEnabled: false,
 	currentLevel: 1, //Starts at 1
@@ -37,11 +40,42 @@ but the main is to help the editor and the programmer to differentiate and organ
  *
  */
 function isCurrentStateValid() {
-	if(allowedStates.includes(appState.currentState)){
-		console.log("Hola");
+	if(allowedStates.includes(appStateNConfig.currentState)){
+		return true;
 	} else {
-		console.error("Error: the current state of the application is not a valid state: " + appState.currentState + 
-                      ". The accepted states are: " + allowedStates.toString() + ".");
+		console.error("Error: the current state of the application is not a valid state: " + appStateNConfig.currentState + ". The accepted states are: " + allowedStates.toString() + ".");
+		return false;
+	}
+}
+
+function changeState(newState){
+	if(typeof newState !== "string"){
+		console.error("Error: the newState parameter should be a string");
+		return false;
+	} else {
+		appStateNConfig.currentState = newState;
+		if (isCurrentStateValid()){
+			switch(appStateNConfig.currentState){
+			case "MENU":
+				menu.displayMenu();
+				document.getElementById("play-button").addEventListener("click", () => {
+					if(changeState("GAME") === false) return; //TODO check this line, it probably won't stop the program if changeState fails by now
+					else menu.destroyMenu();
+		
+				});
+				console.log("Current state is MENU");
+				return true;
+
+			case "GAME":
+				console.log("Current state is GAME");
+				return true;
+
+			default:
+				console.error("Error: the validation of the application state is not working properly, and now the application is in an unknown state.");
+				return false;
+			}
+			
+		} else return false;
 	}
 }
 
@@ -50,7 +84,8 @@ function isCurrentStateValid() {
  *
  */
 function initializeApp(){
-	appState.currentState = "MENU";
+	
+	if (changeState("MENU") === false) return false;
 	//TODO: Make sure application configurations are valid:
 	// - No negative level numbers
 	// - There should be at least cardsPerLevel questions for each level if levelsEnabled is true
@@ -61,6 +96,7 @@ function initializeApp(){
 	document.body.style.backgroundImage = "url(" + background + ")";
 	document.body.style.backgroundRepeat = "repeat";
 	//TODO: [OPTIONAL] Add music
+	return true;
 }
 
 /**
@@ -68,9 +104,14 @@ function initializeApp(){
  *
  */
 function main(){
-	initializeApp(); //Initial app state, background, etc.
-	const menu = new Menu();
-	menu.displayMenu();
+	const initResult = initializeApp(); //Initial app state, background, etc.
+	
+	//If init had a problem, don't execute any code further
+	if (initResult === false){
+		console.error("The application has stopped because of an error during initialization.");
+		return;
+	}
+
 }
 
 
@@ -78,4 +119,4 @@ function main(){
 //Calling main in order to start execution
 main();
 
-export {appState};
+export {appStateNConfig};
