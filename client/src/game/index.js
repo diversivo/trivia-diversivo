@@ -1,6 +1,7 @@
 "use strict";
-
+import svgLogo from "../assets/img/diversivo-v2.svg";
 import { appStateNConfig } from "../index";
+import { generateGameTitleLogo,generateGameTitleText } from "../utils";
 import { Card } from "../card/index";
 //TODO define Victory button
 //TODO define Game Over button
@@ -24,8 +25,27 @@ class Game{
 	/**
 	 * Generates a header DIV where the game logo will be placed
 	 */
-	_createTitleBar(){
+	_createTitleBar(){		
+		//Calling the generation functions for logo and text
+		const gameTitleLogo = generateGameTitleLogo();
+		const gameTitleText = generateGameTitleText();
 
+		//Fixing the logo & text to fit the design
+		gameTitleLogo.style.height = "auto";
+		gameTitleLogo.style.width = "30vw";
+		gameTitleLogo.style.marginLeft = "2vw";
+		gameTitleLogo.style.marginRight = "1vw";
+		gameTitleLogo.style.display = "inline-block";
+
+		gameTitleText.style.fontSize = "4vw";
+		gameTitleText.style.display = "inline-block";
+
+		//Creating the container DIV and appending the image and logo
+		const titleDiv = document.createElement("div");
+		titleDiv.appendChild(gameTitleLogo);
+		titleDiv.appendChild(gameTitleText);
+		
+		return titleDiv;
 	}
 
 	/**
@@ -76,6 +96,11 @@ class Game{
 	 * Builds the game screen
 	 */
 	displayGameScreen(){
+		//document.body.appendChild(document.createElement("div").appendChild(document.createTextNode("GAME")));
+		const gameScreen = document.createDocumentFragment();
+		gameScreen.appendChild(this._createTitleBar());
+		//gameScreen.appendChild(this._createCardsGrid());
+		document.body.appendChild(gameScreen);
 
 	}
 

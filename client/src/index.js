@@ -2,6 +2,7 @@
 import css from "./assets/sass/index.scss";
 import background from "./assets/img/questions1.png";
 import { Menu } from "./menu/index";
+import { Game } from "./game";
 
 //Constants
 const allowedStates = [
@@ -10,6 +11,7 @@ const allowedStates = [
 ];
 
 const menu = new Menu();
+const game = new Game();
 
 
 //Application state object, here's supplied with default parameters, then these values could be replaced from a configuration file
@@ -67,6 +69,7 @@ function changeState(newState){
 				return true;
 
 			case "GAME":
+				game.displayGameScreen();
 				console.log("Current state is GAME");
 				return true;
 
