@@ -1,5 +1,4 @@
 "use strict";
-import svgLogo from "../assets/img/diversivo-v2.svg";
 import { appStateNConfig } from "../index";
 import { generateGameTitleLogo,generateGameTitleText } from "../utils";
 import { Card } from "../card/index";
@@ -18,7 +17,8 @@ import { Card } from "../card/index";
 class Game{
 	constructor(){
 		this._titleBar; //Container div for the game logo, as a bar on the top of the page
-		this._cardDeck; //Array of the card instances on the screen
+		this._cardsDeck = []; //Array of the card instances on the screen
+		this._cardsGrid; //DIV for the cards
 		this._controlsBar; //DIV for the buttons for the operator (Next Level, Win, Lose, etc.)
 	}
 
@@ -42,6 +42,7 @@ class Game{
 
 		//Creating the container DIV and appending the image and logo
 		const titleDiv = document.createElement("div");
+		titleDiv.style.boxShadow = "0 4px 25px 2px black";
 		titleDiv.appendChild(gameTitleLogo);
 		titleDiv.appendChild(gameTitleText);
 		
@@ -59,26 +60,35 @@ class Game{
 	 * Creates the grid structure where the cards will be put
 	 */
 	_createCardsGrid(){
-
+		this._cardsGrid = document.createElement("div");
+		this._cardsGrid.setAttribute("id","cards-grid");
+		this._cardsGrid.style.display = "grid";
+		this._cardsGrid.style.gridGap = "3vw";
+		this._cardsGrid.style.justifyContent = "start";
+		this._cardsGrid.style.gridTemplateColumns = "auto auto auto auto";
+		return this._cardsGrid;
 	}
 
 	/**
-	 * Put the cards into the grid. 
-	 * @param {Array} cardsArray 
+	 * Put the cards of cardsDeck into the grid.  
 	 */
-	_populateCardsGrid(cardsArray){
-
+	_populateCardsGrid(){
+		const cardsFragment = document.createDocumentFragment();
+		//this._cardsDeck.map((card) => {cardsFragment.appendChild(card);}); //TODO watch this line, apparently map does not work to append cards
+		console.log(this._cardsDeck);
+		cardsFragment.appendChild(this._cardsDeck[0]);
+		cardsFragment.appendChild(this._cardsDeck[1]);
+		this._cardsGrid.appendChild(cardsFragment);
 	}
 
 	/**
 	 * Creates an array of cards
 	 */
 	_createCardsDeck(){
-
-	}
-
-	_createTitle(){
-
+		//Adding one card, just for testing
+		//TODO add dynamically cards
+		this._cardsDeck.push(new Card("Q","A").buildCard());
+		this._cardsDeck.push(new Card("Q2","B").buildCard());
 	}
 
 	_createControlButtons(){
@@ -99,8 +109,21 @@ class Game{
 		//document.body.appendChild(document.createElement("div").appendChild(document.createTextNode("GAME")));
 		const gameScreen = document.createDocumentFragment();
 		gameScreen.appendChild(this._createTitleBar());
-		//gameScreen.appendChild(this._createCardsGrid());
+		gameScreen.appendChild(this._createCardsGrid());
+		this._createCardsDeck();
+		this._populateCardsGrid();
+
+		//This just for testing
+	//	this._cardsGrid.appendChild(new Card("hola","aloh"));
+		//This just for testing
+
 		document.body.appendChild(gameScreen);
+	}
+
+	/**
+	 * Deletes game screen elements - exiting from the GAME state
+	 */
+	destroyGameScreen(){
 
 	}
 

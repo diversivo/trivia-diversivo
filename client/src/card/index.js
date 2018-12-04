@@ -14,8 +14,7 @@ class Card{
 		this._state = "COVERED";
 		this._question;
 		this._answer;
-		if(this._setQuestion(question) && this._setAnswer(answer)) return this._buildCard();
-		else return null;
+		//TODO investigate why card couldn't be built here ?
 	}
 
 	_setQuestion(question){
@@ -28,7 +27,7 @@ class Card{
 		}
 	}
 
-	_getQuestion(){
+	getQuestion(){
 		return this._question;
 	}
 
@@ -42,7 +41,7 @@ class Card{
 		}
 	}
 
-	_getAnswer(){
+	getAnswer(){
 		return this._answer;
 	}
 
@@ -65,10 +64,9 @@ class Card{
 	}
 
 	/**
-	 * Generates the documentFragment corresponding to the individual card to be added by the Game class, also including the corresponding eventListener for the click event
+	 * Generates the container DIV corresponding to the individual card to be added by the Game class, also including the corresponding eventListener for the click event
 	 */
-	_buildCard(){
-		const cardFragment = document.createDocumentFragment();
+	buildCard(){
 		const cardDiv = document.createElement("div");
 		cardDiv.classList.add("card");
 		cardDiv.style.height = "250px";
@@ -76,15 +74,13 @@ class Card{
 		cardDiv.style.display = "inline-block";
 		cardDiv.style.border = "3px solid blue";
 		cardDiv.style.backgroundColor = "orange";
-		//TODO complete the card
+		//TODO complete the card - 
 
 		cardDiv.addEventListener("click", () => {
 			console.log("Card with id " + this._id + " has been clicked.");
 			//TODO change card state with click
 		});
-
-		cardFragment.appendChild(cardDiv);
-		return cardFragment;
+		return cardDiv;
 	}
 }
 
