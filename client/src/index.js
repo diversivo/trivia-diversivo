@@ -17,10 +17,10 @@ const game = new Game();
 //Application state object, here's supplied with default parameters, then these values could be replaced from a configuration file
 let appStateNConfig = {
 	currentState: "MENU",
-	levelsEnabled: false,
-	currentLevel: 1, //Starts at 1
+	levelsEnabled: true,
+	currentLevel: 2, //Starts at 1
 	maxLevel: 3, //Basically, the number of levels
-	cardsPerLevel: 3, //If levelsEnabled is true, show this number of cards per level
+	cardsPerLevel: 2, //If levelsEnabled is true, show this number of cards per level
 	cardsIfNoLevel: 10, //If levelsEnabled is false, show this number of cards
 	cardsState: [
 		{
@@ -93,7 +93,8 @@ function initializeApp(){
 	// - No negative level numbers
 	// - There should be at least cardsPerLevel questions for each level if levelsEnabled is true
 	// - There should be at least cardsIfNoLevel questions if levelsEnabled is false
-	// - Discount identical questions from the count (related to the two points above) 
+	// - Discount identical questions from the count (related to the two points above)
+	//TODO: Delete identical questions from the questions pool
 	//TODO: load config from file (validate it previously, if not correct, throw alert and stop execution)
 	//TODO: Add background to the app
 	document.body.style.backgroundImage = "url(" + background + ")";
@@ -120,6 +121,12 @@ function main(){
 
 
 //Calling main in order to start execution
+window.banana = banana;
 main();
+
+//Easter egg
+function banana(){
+	console.log("A banana has been given to the developer. Thank you! 🍌");
+}
 
 export {appStateNConfig};

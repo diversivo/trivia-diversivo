@@ -14,7 +14,8 @@ class Card{
 		this._state = "COVERED";
 		this._question;
 		this._answer;
-		//TODO investigate why card couldn't be built here ?
+		this._setQuestion(question);
+		this._setAnswer(answer);
 	}
 
 	_setQuestion(question){
@@ -31,12 +32,12 @@ class Card{
 		return this._question;
 	}
 
-	_setAnswer(question){
-		if((typeof question !== "string") && isNaN(question)){
-			console.error("El valor " + question + " no es un texto ni un número, y por lo tanto, no se considera válido para ser usado como respuesta.");
+	_setAnswer(answer){
+		if((typeof answer !== "string") && isNaN(answer)){
+			console.error("El valor " + answer + " no es un texto ni un número, y por lo tanto, no se considera válido para ser usado como respuesta.");
 			return false;
 		} else {
-			this._question = question;
+			this._answer = answer;
 			return true;
 		}
 	}
@@ -46,18 +47,48 @@ class Card{
 	}
 
 	_nextState(){
+		console.log(this);
 		switch(this._state){
 		case "COVERED":
 			console.log("Next state for the card with id " +  this._id +  " is \"" + "QUESTION\".");
 			this._state = "QUESTION";
+
+			//Adding the question inside the card
+			const questionElement = document.createElement("span");
+			questionElement.setAttribute("id","question-" + this._id);
+			console.log(this.getQuestion());
+			questionElement.textContent = this.getQuestion();
+			document.getElementById("card" + this._id).appendChild(questionElement);
+			console.log(document.getElementById("card" + this._id));
+			//Update the class of the card so the style could change if CSS is defined for it
+			document.getElementById("card" + this._id).classList.add("question");
+
 			break;
+
 		case "QUESTION":
 			console.log("Next state for the card with id " +  this._id +  " is \"" + "ANSWER\".");
 			this._state = "ANSWER";
+			//Removing the question
+			document.getElementById("card" + this._id).removeChild(document.getElementById("question-" + this._id));
+			//Adding the answer
+			const answerElement = document.createElement("span");
+			answerElement.classList.add("answer");
+			//answerElement.setAttribute("id","answer-" + this._id);
+			answerElement.textContent = this.getAnswer();
+			document.getElementById("card"+ this._id).appendChild(answerElement);
+
+			//Update the class of the card so the style could change if CSS is defined for it
+			document.getElementById("card" + this._id).classList.remove("question");
+			document.getElementById("card" + this._id).classList.add("answer");
+
+			//Remove the click event listener for the card since no further event processing is required - the card will ignore any clicks on the card from now on - in theory, if this works, the "ANSWER" case of this switch statement must never be reached
+			document.getElementById("card" + this._id).removeEventListener("click",this._nextState);
 			break;
+
 		case "ANSWER":
 			console.log("There is no new state for the card with id " +  this._id +  " because \"ANSWER\" is the last state.");
 			break;
+
 		default: //Catch-all if for some mistake the former state was setup incorrectly
 			console.error("Unrecognizable current card state for card id " + this._id + ": \"" + this._state + "\".");
 		}
@@ -69,6 +100,7 @@ class Card{
 	buildCard(){
 		const cardDiv = document.createElement("div");
 		cardDiv.classList.add("card");
+		cardDiv.setAttribute("id","card" + this._id);
 		cardDiv.style.height = "250px";
 		cardDiv.style.width = "500px";
 		cardDiv.style.display = "inline-block";
@@ -76,10 +108,8 @@ class Card{
 		cardDiv.style.backgroundColor = "orange";
 		//TODO complete the card - 
 
-		cardDiv.addEventListener("click", () => {
-			console.log("Card with id " + this._id + " has been clicked.");
-			//TODO change card state with click
-		});
+		cardDiv.addEventListener("click",() => this._nextState()); //TODO try to avoid arrow function in order to be able to remove the event listener, but as for now, if the function is called directly, this = div, not the class instance - ask dquinteros
+		
 		return cardDiv;
 	}
 }
