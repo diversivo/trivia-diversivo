@@ -10,15 +10,15 @@
         },
         {   "question":"¿Cuál es la fórmula química del agua?",
             "answer":"H20",
-            "difficulty":2
+            "difficulty":1
         },
         {   "question":"¿Quién es el presidente de la Federación Rusa?",
             "answer":"Vladimir Putin",
-            "difficulty":2
+            "difficulty":1
         },
         {   "question":"¿A qué medio de transporte corresponde un Boeing 747?",
             "answer":"Avión",
-            "difficulty":2
+            "difficulty":1
         }
     ]
 }

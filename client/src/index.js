@@ -17,11 +17,11 @@ const game = new Game();
 //Application state object, here's supplied with default parameters, then these values could be replaced from a configuration file
 let appStateNConfig = {
 	currentState: "MENU",
-	levelsEnabled: true,
-	currentLevel: 2, //Starts at 1
+	levelsEnabled: false,
+	currentLevel: 1, //Starts at 1
 	maxLevel: 3, //Basically, the number of levels
-	cardsPerLevel: 2, //If levelsEnabled is true, show this number of cards per level
-	cardsIfNoLevel: 10, //If levelsEnabled is false, show this number of cards
+	cardsPerLevel: 4, //If levelsEnabled is true, show this number of cards per level
+	cardsIfNoLevel: 1, //If levelsEnabled is false, show this number of cards
 	cardsState: [
 		{
 			id:1,
